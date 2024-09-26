@@ -65,7 +65,7 @@ output [
 ];
 ```
 ## 🌸Задание №6
-```bash
+```minizinc
 include "alldifferent.mzn";
 
 var 1..1: root;
