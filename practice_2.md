@@ -84,24 +84,21 @@ constraint (shared == 1) -> (target == 1);
 solve satisfy;
 ```
 ## 🌸Задание №7
-Нужно переделать(
 ```bash
-set of int: packages; % множество всех пакетов
-set of int: dependencies; % набор пар (пакет, зависимость), где зависимость - это пакет, от которого зависит пакет
+int: num_packages; %число пакетов
+set of int: Packages = 1..num_packages;
+array[Packages] of var int: selected_version; %выбранные в итоге версии пакетов
+array[Packages] of set of int: dependencies; %зависимости пакетов
+array[Packages, Packages] of int: min_version; %матрица, показывающая какие минимум версии одних пакетов нужны другим пакетам
+array[Packages, Packages] of int: max_version; %матрица, аналогичная первой, только с максимальными версиями
 
-array[packages] of var bool: install;
+constraint
+  forall(i in Packages) (
+    forall(dep in dependencies[i]) (
+      selected_version[dep] >= min_version[i, dep] /\
+      selected_version[dep] <= max_version[i, dep]
+    )
+  );
 
-% Если пакет A зависит от пакета B, и пакет A устанавливается, то пакет B тоже должен быть установлен
-constraint forall(i in packages) 
-  (install[i] -> 
-    (forall(j in dependencies where j == i) 
-      (install[j] = true)));
-
-% Нужно минимизировать количество устанавливаемых пакетов
-solve minimize sum(i in packages) (install[i]);
-
-% Выходные данные: install: множество пакетов, которые нужно установить
-output [
-  "install = ", show(install), "\n"
-];
+solve satisfy;
 ```
