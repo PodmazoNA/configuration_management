@@ -1,5 +1,5 @@
 # Домашняя работа №1
-'''bash
+```bash
 import os
 import shutil
 import zipfile
@@ -104,4 +104,4 @@ def cal(month, year):
 
 create_archive()
 run()
-'''
+```
