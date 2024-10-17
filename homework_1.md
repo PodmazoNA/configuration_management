@@ -6,6 +6,7 @@ import zipfile
 import calendar
 from datetime import datetime
 import tarfile
+import csv
 
 def run():
     current_directory = 'archive'
@@ -13,11 +14,13 @@ def run():
     while True:
         command = input(f"{current_directory} ")
         if command == "exit":
+            logInfo(command)
             break
         if command[:2] == "cd":
             result = cd(current_directory, previos_directory, command[3:])
             previos_directory = current_directory
             current_directory = result
+            logInfo(command)
         if command[:2] == "ls":
             if len(command) == 2:
                 ls(current_directory)
@@ -26,14 +29,17 @@ def run():
                     ls(command[3:])
                 except Exception as e:
                     print(f"ls: {command[3:]}: No such file or directory")
+            logInfo(command)
         if command[:2] == "cp":
             try:
                 arr = command.split()
                 cp(arr[1], arr[2])
             except Exception as e:
                 print("cp: No such file or directory")
+            logInfo(command)
         if command[:5] == "rmdir":
             rmdir(command[6:])
+            logInfo(command)
         if command[:3] == "cal":
             if len(command.split(" ")) == 1:
                 cal(datetime.now().month, datetime.now().year)
@@ -42,6 +48,7 @@ def run():
             if len(command.split(" ")) == 2:
                 for i in range(1, 13):
                     cal(i, int(command.split(" ")[1]))
+            logInfo(command)
 
 
 
@@ -181,6 +188,12 @@ def cal(month, year):
         print(month_calendar)
     except Exception as e:
         print("cal: illegal month value: use 1-12")
+
+def logInfo(command):
+    with open("logfile.csv", mode='a', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        writer.writerow([timestamp, command])
 
 create_archive()
 run()
