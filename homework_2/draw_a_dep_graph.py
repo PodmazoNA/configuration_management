@@ -36,8 +36,8 @@ def vis_dep(name, dep_list):
     dot = graphviz.Digraph(format='png')
     dot.node(name)
     for elem in dep_list:
-        dot.node(elem['groupId'])
-        dot.edge(name, elem['groupId'])
+        dot.node(elem['groupId'] + ", " + elem['artifactId'] + ", " + elem['version'])
+        dot.edge(name, elem['groupId'] + ", " + elem['artifactId'] + ", " + elem['version'])
 
     dot.render(name + '_dep_graph', view=True)
 
