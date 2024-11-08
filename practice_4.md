@@ -92,3 +92,23 @@ git log -n 5 --graph --decorate --all
 ![pract4_10](https://github.com/user-attachments/assets/9ebc1d69-f504-43d8-ba4f-89d9cb28e520)
 ## 🌸Задача №4
 Написать программу на Питоне (или другом ЯП), которая выводит список содержимого всех объектов репозитория. Воспользоваться командой "git cat-file -p". Идеальное решение – не использовать иных сторонних команд и библиотек для работы с git.
+```bash
+import subprocess
+def get_git_objects():
+    try:
+        commits = subprocess.check_output(['git', 'rev-list', '--all']).decode('utf-8').splitlines()
+        for commit in commits:
+            print(f'Contents of commit {commit}:')
+            try:
+                content = subprocess.check_output(['git', 'cat-file', '-p', commit]).decode('utf-8')
+                print(content)
+            except subprocess.CalledProcessError as e:
+                print(f'Error retrieving object {commit}: {e}')
+            print('-' * 40)
+    except subprocess.CalledProcessError as e:
+        print(f'Error retrieving commits: {e}')
+
+if __name__ == '__main__':
+    get_git_objects()
+```
+![pract4_11](https://github.com/user-attachments/assets/5b282011-b76a-46b4-bc6b-4ce0e8cb6bc1)
