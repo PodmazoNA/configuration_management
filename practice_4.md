@@ -23,3 +23,14 @@ git merge second
 git checkout in
 ```
 ![pract4_2](https://github.com/user-attachments/assets/3d471cf4-c50f-4110-9a77-5be99314279f)
+## 🌸Задача №2
+Создать локальный git-репозиторий. Задать свои имя и почту (далее – coder1). Разместить файл prog.py с какими-нибудь данными. Прислать в текстовом виде диалог с git.
+```bash
+git init
+git config user.name "coder1"
+git config user.email "coder1@gmail.com"
+echo print("Hello, World!") > prog.py
+git add prog.py
+git commit -m "first commit"
+```
+![pract4_3](https://github.com/user-attachments/assets/b9b81204-6cd1-4f4f-b914-18341ca00d4b)
