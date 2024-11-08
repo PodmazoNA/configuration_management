@@ -89,3 +89,4 @@ cd ..
 cd server
 git log -n 5 --graph --decorate --all
 ```
+![pract4_10](https://github.com/user-attachments/assets/9ebc1d69-f504-43d8-ba4f-89d9cb28e520)
