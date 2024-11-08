@@ -40,3 +40,52 @@ git commit -m "first commit"
 Coder1 получает актуальные данные с сервера. Добавляет в readme в раздел об авторах свою информацию и обновляет сервер.  
 Coder2 добавляет в readme в раздел об авторах свою информацию и решает вопрос с конфликтами.  
 Прислать список набранных команд и содержимое git log.  
+```bash
+git init
+git config user.name "coder1"
+git config user.email "coder1@gmail.com"
+echo print("Hello, World!") > prog.py
+git add prog.py
+git commit -m "first commit"
+
+cd C:\Users\Admin\Desktop\pract4_repo
+git init --bare server
+git remote add server C:\Users\Admin\Desktop\pract4_repo\server
+git remote -v
+git push server master
+
+git clone C:\Users\Admin\Desktop\pract4_repo\server C:\Users\Admin\Desktop\pract4_repo\client
+cd C:\Users\Admin\Desktop\pract4_repo\client
+git config user.name "coder2"
+git config user.email "coder2@gmail.com"
+
+echo "Author Information:" > readme.md
+git add readme.md
+git commit -m "docs"
+
+git remote rename origin server
+git push server master
+
+cd C:\Users\Admin\Desktop\pract4_repo
+git pull server master
+
+echo "Author: coder1" >> readme.md
+git add readme.md
+git commit -m "coder1 info"
+git push server master
+
+cd C:\Users\Admin\Desktop\pract4_repo\client
+echo "Author: coder2" >> readme.md
+git add readme.md
+git commit -m "coder2 info"
+git push server master
+git pull server master
+
+git add readme.md
+git commit -m "readme fix"
+git push server master
+
+cd ..
+cd server
+git log -n 5 --graph --decorate --all
+```
