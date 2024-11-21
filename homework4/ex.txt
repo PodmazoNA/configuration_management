@@ -1,0 +1,6 @@
+load_const 10
+read_mem
+write_mem 20
+load_const 25
+write_mem 5
+sqrt 2
